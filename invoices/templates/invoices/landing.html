@@ -1,0 +1,34 @@
+{% extends 'invoices/base.html' %}
+
+{% block title %}Home - InvoiceAuto{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="py-5 text-center bg-primary text-white">
+  <div class="container">
+    <h1 class="display-4 fw-bold">Automate Your Invoice Processing</h1>
+    <p class="lead">Upload invoices, extract key data instantly, and streamline your workflow.</p>
+    <a href="{% url 'upload_invoice' %}" class="btn btn-lg btn-light mt-3">Try Demo</a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <h3>Fast OCR</h3>
+        <p>Extract invoice data in seconds with high accuracy.</p>
+      </div>
+      <div class="col-md-4">
+        <h3>CSV & Excel Export</h3>
+        <p>Download extracted data for your accounting workflow.</p>
+      </div>
+      <div class="col-md-4">
+        <h3>Easy Integration</h3>
+        <p>Use our API or dashboard to manage invoices seamlessly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

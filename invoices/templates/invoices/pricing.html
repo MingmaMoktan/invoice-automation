@@ -1,0 +1,35 @@
+{% extends 'invoices/base.html' %}
+
+{% block title %}Pricing - InvoiceAuto{% endblock %}
+
+{% block content %}
+<section class="py-5 text-center">
+  <div class="container">
+    <h1 class="display-4 mb-4">Pricing Plans</h1>
+    <p class="lead mb-5">Choose a plan that suits your needs.</p>
+
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body text-center">
+            <h3 class="card-title">Free</h3>
+            <p class="card-text">Basic invoice upload and extraction (limited usage)</p>
+            <h4>$0 / month</h4>
+            <a href="{% url 'upload_invoice' %}" class="btn btn-primary mt-3">Start Free</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body text-center">
+            <h3 class="card-title">Pro</h3>
+            <p class="card-text">Unlimited uploads, CSV/Excel export, multi-language support</p>
+            <h4>$9.99 / month</h4>
+            <a href="{% url 'contact' %}" class="btn btn-primary mt-3">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

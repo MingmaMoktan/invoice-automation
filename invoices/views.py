@@ -9,6 +9,22 @@ from PIL import Image
 import pytesseract
 from pdf2image import convert_from_path
 
+def landing(request):
+    return render(request, 'invoices/landing.html')
+
+def pricing(request):
+    return render(request, 'invoices/pricing.html')
+
+def about(request):
+    return render(request, 'invoices/about.html')
+
+def blog(request):
+    return render(request, 'invoices/blog.html')
+
+def contact(request):
+    return render(request, 'invoices/contact.html')
+
+
 # Helper: run tesseract on an image path and return text
 def ocr_image_file(image_path):
     try:
@@ -56,3 +72,4 @@ def upload_invoice(request):
     else:
         form = InvoiceForm()
     return render(request, 'invoices/upload.html', {'form': form})
+
