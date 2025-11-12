@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Upload Invoice</title>
+</head>
+<body>
+  <h1>Upload Invoice</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+
+  <hr>
+  <p>Uploaded files will appear in the media/invoices/ folder.</p>
+</body>
+</html>

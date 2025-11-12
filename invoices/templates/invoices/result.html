@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>OCR Result</title>
+  <style>
+    pre { background:#f5f5f5; padding:12px; border-radius:4px; white-space:pre-wrap; word-wrap:break-word;}
+  </style>
+</head>
+<body>
+  <h1>OCR Result</h1>
+  <p><strong>File:</strong> {{ invoice.file.name }}</p>
+  <p><strong>Uploaded at:</strong> {{ invoice.uploaded_at }}</p>
+
+  <h2>Extracted Text</h2>
+  <pre>{{ invoice.extracted_text }}</pre>
+
+  <p><a href="{% url 'upload_invoice' %}">Upload another</a></p>
+</body>
+</html>
