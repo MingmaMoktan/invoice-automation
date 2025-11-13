@@ -3,7 +3,8 @@ import tempfile
 from django.shortcuts import render, redirect
 from django.conf import settings
 from .forms import InvoiceForm
-from .models import InvoiceFile
+from .models import InvoiceFile, BlogPost
+from django.shortcuts import get_object_or_404
 
 from PIL import Image
 import pytesseract
@@ -19,7 +20,12 @@ def about(request):
     return render(request, 'invoices/about.html')
 
 def blog(request):
-    return render(request, 'invoices/blog.html')
+    posts = BlogPost.objects.all().order_by('-published_at')  # newest first
+    return render(request, 'invoices/blog.html', {'posts': posts})
+
+def blog_detail(request, post_id):
+    post = get_object_or_404(BlogPost, id=post_id)
+    return render(request, 'invoices/blog_detail.html', {'post': post})
 
 def contact(request):
     return render(request, 'invoices/contact.html')
