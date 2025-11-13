@@ -3,32 +3,96 @@
 {% block title %}Home - InvoiceAuto{% endblock %}
 
 {% block content %}
+
 <!-- Hero Section -->
 <section class="py-5 text-center bg-primary text-white">
   <div class="container">
     <h1 class="display-4 fw-bold">Automate Your Invoice Processing</h1>
     <p class="lead">Upload invoices, extract key data instantly, and streamline your workflow.</p>
-    <a href="{% url 'upload_invoice' %}" class="btn btn-lg btn-light mt-3">Try Demo</a>
+    <a href="{% url 'signup' %}" class="btn btn-lg btn-light mt-3">Get Started for Free</a>
   </div>
 </section>
 
-<!-- Features Section -->
+<!-- Popular Use Cases -->
 <section class="py-5">
   <div class="container">
+    <h2 class="text-center mb-4">Popular Use Cases</h2>
     <div class="row text-center">
-      <div class="col-md-4">
-        <h3>Fast OCR</h3>
-        <p>Extract invoice data in seconds with high accuracy.</p>
+      <div class="col-md-4 mb-4">
+        <h5>Accounts Payable Automation</h5>
+        <p>Automatically capture invoice details and sync with your accounting software to reduce processing time and human error.</p>
       </div>
-      <div class="col-md-4">
-        <h3>CSV & Excel Export</h3>
-        <p>Download extracted data for your accounting workflow.</p>
+      <div class="col-md-4 mb-4">
+        <h5>Expense Management</h5>
+        <p>Extract invoice line items and match with internal budgets or expense policies seamlessly.</p>
       </div>
-      <div class="col-md-4">
-        <h3>Easy Integration</h3>
-        <p>Use our API or dashboard to manage invoices seamlessly.</p>
+      <div class="col-md-4 mb-4">
+        <h5>Audit & Compliance</h5>
+        <p>Ensure that invoice records are accurate and compliant with local tax or regulatory requirements by digitizing everything.</p>
       </div>
     </div>
   </div>
 </section>
+
+<!-- How It Works -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4">How It Works</h2>
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <h5>1. Upload</h5>
+        <p>Drag & drop your invoice or upload from any device.</p>
+      </div>
+      <div class="col-md-4 mb-4">
+        <h5>2. Extract</h5>
+        <p>Our AI reads and extracts data fields with high accuracy—even from complex layouts.</p>
+      </div>
+      <div class="col-md-4 mb-4">
+        <h5>3. Export</h5>
+        <p>Download your structured data in Excel, CSV, or connect to your systems via API.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Who Can Benefit -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Who Can Benefit from Our AI</h2>
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <h5>Accountants & Bookkeepers</h5>
+        <p>Automate manual data entry and focus on delivering insights instead of chasing numbers.</p>
+      </div>
+      <div class="col-md-4 mb-4">
+        <h5>Small & Medium Businesses</h5>
+        <p>Save time and reduce errors by automating your invoice management with AI-powered precision.</p>
+      </div>
+      <div class="col-md-4 mb-4">
+        <h5>Finance Teams</h5>
+        <p>Accelerate financial operations and keep data consistent and accurate across all platforms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features & Benefits -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4">Features & Benefits</h2>
+    <div class="row text-center">
+      <div class="col-md-3 mb-3"><strong>Accurate Data</strong><p>Ensure precise extraction reducing human errors.</p></div>
+      <div class="col-md-3 mb-3"><strong>Simple & Secure</strong><p>Securely upload your invoices with full confidence.</p></div>
+      <div class="col-md-3 mb-3"><strong>Fast Processing</strong><p>Extract invoice data in seconds with our AI-powered tool.</p></div>
+      <div class="col-md-3 mb-3"><strong>Time-Saving</strong><p>Let our AI do the heavy lifting in seconds.</p></div>
+      <div class="col-md-3 mb-3"><strong>No Setup Required</strong><p>Start extracting data right away. No config needed.</p></div>
+      <div class="col-md-3 mb-3"><strong>Powerful AI</strong><p>Handles invoices of any format or layout.</p></div>
+      <div class="col-md-3 mb-3"><strong>Fully Customizable Output</strong><p>Control structure, fields, and granularity to suit your needs.</p></div>
+      <div class="col-md-3 mb-3"><strong>Select Invoice Fields</strong><p>Choose only the invoice fields you need.</p></div>
+      <div class="col-md-3 mb-3"><strong>Reorder Columns Visually</strong><p>Drag and drop columns to match workflow.</p></div>
+      <div class="col-md-3 mb-3"><strong>Detail or Summary Output</strong><p>Export one row per invoice or per product line.</p></div>
+    </div>
+  </div>
+</section>
+
 {% endblock %}

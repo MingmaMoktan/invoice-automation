@@ -54,6 +54,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'core.urls'
 
+# core/settings.py
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -61,13 +62,16 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
+                'django.contrib.auth.context_processors.auth',  # <--- important!
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
@@ -128,3 +132,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+# Redirect logged-in users to dashboard
+LOGIN_URL = '/accounts/login/' 
+LOGIN_REDIRECT_URL = 'dashboard'  # This should match the name in your urls.py
+LOGOUT_REDIRECT_URL = 'landing'   # Optional: redirect to landing page after logout

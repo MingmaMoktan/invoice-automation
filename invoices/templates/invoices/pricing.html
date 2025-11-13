@@ -8,28 +8,79 @@
     <h1 class="display-4 mb-4">Pricing Plans</h1>
     <p class="lead mb-5">Choose a plan that suits your needs.</p>
 
-    <div class="row justify-content-center">
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm h-100">
-          <div class="card-body text-center">
-            <h3 class="card-title">Free</h3>
-            <p class="card-text">Basic invoice upload and extraction (limited usage)</p>
-            <h4>$0 / month</h4>
-            <a href="{% url 'upload_invoice' %}" class="btn btn-primary mt-3">Start Free</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-4">
-        <div class="card shadow-sm h-100">
-          <div class="card-body text-center">
-            <h3 class="card-title">Pro</h3>
-            <p class="card-text">Unlimited uploads, CSV/Excel export, multi-language support</p>
-            <h4>$9.99 / month</h4>
-            <a href="{% url 'contact' %}" class="btn btn-primary mt-3">Contact Us</a>
+    <!-- Demo Plan Above Paid Plans -->
+    <div class="row justify-content-center g-4 mb-5">
+      <div class="col-md-3">
+        <div class="card shadow-sm h-100 d-flex flex-column border-success">
+          <div class="card-body d-flex flex-column text-center">
+            <h3 class="card-title">Demo</h3>
+            <p class="card-text flex-grow-1">Test by uploading up to 3 invoices for free</p>
+            <h4>€0</h4>
+            <div class="mt-auto">
+              <a href="{% url 'upload_invoice' %}" class="btn btn-outline-success w-100">Try Demo</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- Paid Plans -->
+    <div class="row justify-content-center g-4">
+      <!-- Starter Plan -->
+      <div class="col-md-3">
+        <div class="card shadow-sm h-100 d-flex flex-column">
+          <div class="card-body d-flex flex-column text-center">
+            <h3 class="card-title">Starter</h3>
+            <p class="card-text flex-grow-1">Upload up to 200 invoices per month, CSV/Excel export</p>
+            <h4>€10 / month</h4>
+            <div class="mt-auto">
+              <a href="{% url 'contact' %}" class="btn btn-primary w-100">Get Started</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advanced Plan -->
+      <div class="col-md-3">
+        <div class="card shadow-sm h-100 d-flex flex-column">
+          <div class="card-body d-flex flex-column text-center">
+            <h3 class="card-title">Advanced</h3>
+            <p class="card-text flex-grow-1">Upload 200–1000 invoices, CSV/Excel export, basic automation</p>
+            <h4>€39 / month</h4>
+            <div class="mt-auto">
+              <a href="{% url 'contact' %}" class="btn btn-primary w-100">Get Started</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Professional Plan -->
+      <div class="col-md-3">
+        <div class="card shadow-sm h-100 d-flex flex-column">
+          <div class="card-body d-flex flex-column text-center">
+            <h3 class="card-title">Professional</h3>
+            <p class="card-text flex-grow-1">1000–3000 uploads, multi-language support, automation features</p>
+            <h4>€119 / month</h4>
+            <div class="mt-auto">
+              <a href="{% url 'contact' %}" class="btn btn-primary w-100">Get Started</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enterprise Plan -->
+      <div class="col-md-3">
+        <div class="card shadow-sm h-100 d-flex flex-column border-primary">
+          <div class="card-body d-flex flex-column text-center">
+            <h3 class="card-title">Enterprise</h3>
+            <p class="card-text flex-grow-1">Unlimited uploads, full automation, API access, priority support, custom integrations</p>
+            <div class="mt-auto">
+              <a href="{% url 'contact' %}" class="btn btn-primary w-100">Contact Sales</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- row -->
+  </div> <!-- container -->
 </section>
 {% endblock %}

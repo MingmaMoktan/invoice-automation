@@ -1,0 +1,41 @@
+{% extends 'invoices/base.html' %}
+{% block title %}Bulk Results - InvoiceAuto{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h1 class="card-title mb-4 text-center">Processed Invoices</h1>
+
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>File</th>
+              <th>Invoice #</th>
+              <th>Date</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in results %}
+            <tr>
+              <td>{{ row.id }}</td>
+              <td>{{ row.file }}</td>
+              <td>{{ row.invoice_number|default:"—" }}</td>
+              <td>{{ row.invoice_date|default:"—" }}</td>
+              <td>{{ row.total_amount|default:"—" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-center gap-2 mt-3">
+        <a href="{% url 'export_last_processed_csv' %}" class="btn btn-success">Download CSV</a>
+        <a href="{% url 'upload_bulk' %}" class="btn btn-secondary">Upload More</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
