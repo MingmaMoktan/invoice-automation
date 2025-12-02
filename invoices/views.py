@@ -196,16 +196,25 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login as auth_login
 
+from django.contrib.auth import login as auth_login
+
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect('landing')
+
+            # Redirect to payment if plan selected
+            plan = request.session.get("selected_plan")
+            if plan:
+                return redirect("payment_page", plan=plan)
+
+            return redirect("landing")
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
 
 
 from django.shortcuts import render, get_object_or_404, redirect
@@ -234,3 +243,25 @@ def download_invoice(request, invoice_id):
         response = HttpResponse(f.read(), content_type="application/octet-stream")
         response['Content-Disposition'] = f'attachment; filename="{os.path.basename(file_path)}"'
         return response
+
+
+from django.shortcuts import redirect, render
+
+def select_plan(request, plan):
+    valid_plans = ["starter", "advanced", "professional", "enterprise"]
+
+    if plan not in valid_plans:
+        return redirect("pricing")
+
+    # If user is not logged in, save plan in session and redirect to signup
+    if not request.user.is_authenticated:
+        request.session["selected_plan"] = plan
+        return redirect("signup")
+
+    # If logged in, go to payment page
+    return redirect("payment_page", plan=plan)
+
+def payment_page(request, plan):
+    # For now, just display the plan selected. Later integrate payment gateway
+    return render(request, "invoices/payment.html", {"plan": plan})
+

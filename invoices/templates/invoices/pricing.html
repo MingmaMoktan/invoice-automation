@@ -34,7 +34,7 @@
             <p class="card-text flex-grow-1">Upload up to 200 invoices per month, CSV/Excel export</p>
             <h4>€10 / month</h4>
             <div class="mt-auto">
-              <a href="{% url 'contact' %}" class="btn btn-primary w-100">Get Started</a>
+              <a href="{% url 'select_plan' 'starter' %}" class="btn btn-primary w-100">Get Started</a>
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@
             <p class="card-text flex-grow-1">Upload 200–1000 invoices, CSV/Excel export, basic automation</p>
             <h4>€39 / month</h4>
             <div class="mt-auto">
-              <a href="{% url 'contact' %}" class="btn btn-primary w-100">Get Started</a>
+              <a href="{% url 'select_plan' 'advanced' %}" class="btn btn-primary w-100">Get Started</a>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
             <p class="card-text flex-grow-1">1000–3000 uploads, multi-language support, automation features</p>
             <h4>€119 / month</h4>
             <div class="mt-auto">
-              <a href="{% url 'contact' %}" class="btn btn-primary w-100">Get Started</a>
+              <a href="{% url 'select_plan' 'professional' %}" class="btn btn-primary w-100">Get Started</a>
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@
             <h3 class="card-title">Enterprise</h3>
             <p class="card-text flex-grow-1">Unlimited uploads, full automation, API access, priority support, custom integrations</p>
             <div class="mt-auto">
-              <a href="{% url 'contact' %}" class="btn btn-primary w-100">Contact Sales</a>
+              <a href="{% url 'select_plan' 'enterprise' %}" class="btn btn-primary w-100">Contact Sales</a>
             </div>
           </div>
         </div>

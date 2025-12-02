@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'invoices',
     'ckeditor',
     'ckeditor_uploader',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [

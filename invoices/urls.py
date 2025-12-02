@@ -37,4 +37,8 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('invoice/<int:invoice_id>/delete/', views.delete_invoice, name='delete_invoice'),
     path('invoice/<int:invoice_id>/download/', views.download_invoice, name='download_invoice'),
+    
+    #For Pans
+    path("select-plan/<str:plan>/", views.select_plan, name="select_plan"),
+    path("payment/<str:plan>/", views.payment_page, name="payment_page"),
 ]
