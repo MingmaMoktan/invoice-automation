@@ -14,9 +14,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('invoices.urls')),  # Your app URLs
     path('ckeditor/', include('ckeditor_uploader.urls')),  # CKEditor
-
-    # Django authentication URLs
-    path('accounts/', include('django.contrib.auth.urls')),  # login, logout, password_reset, etc.
+    
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 # Serve media files in development
