@@ -3,10 +3,15 @@ import re
 import csv
 import tempfile
 from io import StringIO
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login as auth_login
+from django.utils import timezone
 from .forms import InvoiceForm, MultiInvoiceForm
-from .models import InvoiceFile, BlogPost
+from .models import InvoiceFile, BlogPost, Invoice
+from accounts.decorators import upload_limit_required
 from PIL import Image
 import pytesseract
 from pdf2image import convert_from_path
@@ -32,7 +37,6 @@ def blog_detail(request, post_id):
 def contact(request):
     return render(request, 'invoices/contact.html')
 
-
 # ===== OCR Helper =====
 def ocr_image_file(image_path):
     """Extract text from an image using Tesseract OCR."""
@@ -40,7 +44,6 @@ def ocr_image_file(image_path):
         return pytesseract.image_to_string(Image.open(image_path))
     except Exception as e:
         return f"[OCR error] {e}"
-
 
 def parse_invoice_fields(text):
     """Parse invoice number, date, and total amount from OCR text."""
@@ -88,12 +91,20 @@ def parse_invoice_fields(text):
 
 
 # ===== Single Invoice Upload =====
+@login_required
+@upload_limit_required
 def upload_invoice(request):
     if request.method == 'POST':
         form = InvoiceForm(request.POST, request.FILES)
         if form.is_valid():
             invoice = form.save(commit=False)
+            invoice.user = request.user
             invoice.save()
+
+            # Increment user's upload count
+            profile = request.user.userprofile
+            profile.uploads_this_month += 1
+            profile.save()
 
             file_path = invoice.file.path
             file_ext = os.path.splitext(file_path)[1].lower()
@@ -126,14 +137,17 @@ def upload_invoice(request):
 
 
 # ===== Bulk Invoice Upload =====
+@login_required
+@upload_limit_required
 def upload_invoices(request):
-    """Multiple invoice upload with CSV generation."""
     results = []
 
     if request.method == 'POST':
         form = MultiInvoiceForm(request.POST, request.FILES)
         if form.is_valid():
-            files = request.FILES.getlist('files')  # This will now correctly get all uploaded files
+            files = request.FILES.getlist('files')
+            profile = request.user.userprofile
+
             for file in files:
                 invoice = InvoiceFile.objects.create(file=file)
                 file_path = invoice.file.path
@@ -166,6 +180,10 @@ def upload_invoices(request):
                     'total_amount': parsed['total_amount']
                 })
 
+                # Increment upload count per file
+                profile.uploads_this_month += 1
+                profile.save()
+
             # Save CSV in memory
             csv_buffer = StringIO()
             writer = csv.DictWriter(csv_buffer, fieldnames=['filename', 'invoice_number', 'invoice_date', 'total_amount'])
@@ -182,6 +200,7 @@ def upload_invoices(request):
 
 
 # ===== CSV Download =====
+@login_required
 def download_invoices_csv(request):
     csv_data = request.session.get('invoice_csv', '')
     if not csv_data:
@@ -192,12 +211,7 @@ def download_invoices_csv(request):
     return response
 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login as auth_login
-
-from django.contrib.auth import login as auth_login
-
+# ===== Signup =====
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -216,17 +230,10 @@ def signup(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 
-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from .models import Invoice  # assuming you have an Invoice model
-import os
-from django.conf import settings
-
+# ===== Dashboard =====
 @login_required
 def dashboard(request):
-    user_invoices = Invoice.objects.filter(user=request.user)  # assuming Invoice model has a user field
+    user_invoices = Invoice.objects.filter(user=request.user)
     return render(request, 'invoices/dashboard.html', {'invoices': user_invoices})
 
 @login_required
@@ -235,33 +242,38 @@ def delete_invoice(request, invoice_id):
     invoice.delete()
     return redirect('dashboard')
 
+from django.conf import settings
+from django.http import Http404
+
 @login_required
 def download_invoice(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id, user=request.user)
     file_path = os.path.join(settings.MEDIA_ROOT, invoice.file.name)
+
+    if not os.path.exists(file_path):
+        # File does not exist, raise 404
+        raise Http404("The requested invoice file does not exist.")
+
     with open(file_path, 'rb') as f:
         response = HttpResponse(f.read(), content_type="application/octet-stream")
         response['Content-Disposition'] = f'attachment; filename="{os.path.basename(file_path)}"'
         return response
 
 
-from django.shortcuts import redirect, render
-
+# ===== Plan Selection & Payment =====
 def select_plan(request, plan):
     valid_plans = ["starter", "advanced", "professional", "enterprise"]
 
     if plan not in valid_plans:
         return redirect("pricing")
 
-    # If user is not logged in, save plan in session and redirect to signup
     if not request.user.is_authenticated:
         request.session["selected_plan"] = plan
         return redirect("signup")
 
-    # If logged in, go to payment page
     return redirect("payment_page", plan=plan)
 
+@login_required
 def payment_page(request, plan):
-    # For now, just display the plan selected. Later integrate payment gateway
+    # Display the plan and integrate payment gateway later
     return render(request, "invoices/payment.html", {"plan": plan})
-
